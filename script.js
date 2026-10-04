@@ -205,3 +205,57 @@ document.addEventListener(
 
     }
 );
+
+```javascript
+/* =====================================================
+   STATISTICHE GENERALI
+   ===================================================== */
+
+const totalTeamsElement = document.getElementById("total-teams");
+const totalMatchesElement = document.getElementById("total-matches");
+const totalGoalsElement = document.getElementById("total-goals");
+const lastMatchElement = document.getElementById("last-match");
+
+if (totalTeamsElement) {
+
+    fetch("data/national_teams.json")
+        .then(response => response.json())
+        .then(teams => {
+
+            // Numero di nazionali
+            totalTeamsElement.textContent = teams.length;
+
+            // Tutte le partite presenti nell'archivio
+            const allMatches = teams.flatMap(team => team.matches || []);
+
+            totalMatchesElement.textContent = allMatches.length;
+
+            // Totale gol segnati
+            const totalGoals = allMatches.reduce((total, match) => {
+                return total + Number(match.homeScore) + Number(match.awayScore);
+            }, 0);
+
+            totalGoalsElement.textContent = totalGoals;
+
+            // Trova la partita più recente
+            if (allMatches.length > 0) {
+
+                const sortedMatches = [...allMatches].sort((a, b) => {
+                    const dateA = new Date(a.date.split("-").reverse().join("-"));
+                    const dateB = new Date(b.date.split("-").reverse().join("-"));
+
+                    return dateB - dateA;
+                });
+
+                lastMatchElement.textContent = sortedMatches[0].date;
+
+            } else {
+                lastMatchElement.textContent = "—";
+            }
+
+        })
+        .catch(error => {
+            console.error("Errore caricamento statistiche:", error);
+        });
+}
+```
