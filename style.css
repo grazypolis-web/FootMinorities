@@ -251,7 +251,6 @@
 
 }
 
-```css
 /* =========================
    RIQUADRI STATISTICHE
    ========================= */
@@ -273,6 +272,7 @@
     padding: 28px;
     border: 1px solid #ddd;
     background: #fff;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -281,6 +281,7 @@
 .stat-card-label {
     font-size: 14px;
     color: #777;
+
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
@@ -290,6 +291,7 @@
     line-height: 1;
     font-weight: 700;
 }
+
 
 @media (max-width: 800px) {
 
@@ -303,4 +305,4 @@
     }
 
 }
-```
+
