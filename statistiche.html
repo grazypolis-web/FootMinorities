@@ -1,3 +1,91 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Statistiche — National Football Archive</title><link rel="stylesheet" href="style.css"></head><body>
-<header><div class="header"><a class="brand" href="index.html"><span class="logo">NFA</span><span>National Football Archive</span></a><nav><a href="index.html">Home</a><a href="news.html">News</a><a class="active" href="statistiche.html">Statistiche</a></nav></div></header>
-<main class="page"><section class="title"><small>DATABASE</small><h1>Statistiche</h1><p>Una sezione dedicata ai dati storici delle nazionali calcistiche.</p></section><section class="placeholder"><b>01</b><h2>Sezione in costruzione</h2><p>Qui verranno raccolte classifiche, presenze, marcatori, risultati e altri dati statistici delle nazionali.</p></section></main><footer>© <span id="footerYear"></span> National Football Archive</footer><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Statistiche - FootMinorities</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="news.html">News</a>
+            <a href="statistiche.html" class="active">Statistiche</a>
+        </nav>
+
+        <div class="site-logo">
+            FootMinorities
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="statistics-page">
+
+    <section class="statistics-intro">
+
+        <h1>Statistiche</h1>
+
+        <p>
+            Seleziona una nazionale per consultare lo storico delle
+            partite e i relativi documenti.
+        </p>
+
+    </section>
+
+
+    <aside class="teams-sidebar">
+
+        <h2>Nazionali</h2>
+
+        <div id="teams-list">
+            <p class="loading">Caricamento...</p>
+        </div>
+
+    </aside>
+
+</main>
+
+
+<!-- PANNELLO PARTITE -->
+
+<div id="matches-overlay" class="matches-overlay"></div>
+
+<aside id="matches-panel" class="matches-panel">
+
+    <button id="close-panel" class="close-panel">
+        ×
+    </button>
+
+    <div id="matches-content"></div>
+
+</aside>
+
+
+<!-- LIGHTBOX -->
+
+<div id="report-lightbox" class="report-lightbox">
+
+    <button id="close-lightbox" class="close-lightbox">
+        ×
+    </button>
+
+    <img id="report-image" src="" alt="Referto della partita">
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
