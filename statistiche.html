@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Statistiche - FootMinorities</title>
+    <title>Statistiche - National Football Archive</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +13,6 @@
 <body>
 
 <header class="site-header">
-
     <div class="header-inner">
 
         <nav class="main-nav">
@@ -22,46 +22,63 @@
         </nav>
 
         <div class="site-logo">
-            FootMinorities
+            National Football Archive
         </div>
 
     </div>
-
 </header>
 
 
-```html
 <main class="statistics-page">
 
     <section class="statistics-main">
 
         <div class="statistics-intro">
+
             <h1>Statistiche</h1>
+
             <p>
                 Esplora i dati e lo storico delle nazionali presenti
                 nell'archivio.
             </p>
+
         </div>
+
 
         <section class="statistics-cards">
 
             <div class="stat-card">
-                <span class="stat-card-label">Nazionali archiviate</span>
+                <span class="stat-card-label">
+                    Nazionali archiviate
+                </span>
+
                 <strong id="total-teams">—</strong>
             </div>
 
+
             <div class="stat-card">
-                <span class="stat-card-label">Partite registrate</span>
+                <span class="stat-card-label">
+                    Partite registrate
+                </span>
+
                 <strong id="total-matches">—</strong>
             </div>
 
+
             <div class="stat-card">
-                <span class="stat-card-label">Gol segnati</span>
+                <span class="stat-card-label">
+                    Gol segnati
+                </span>
+
                 <strong id="total-goals">—</strong>
             </div>
 
+
             <div class="stat-card">
-                <span class="stat-card-label">Ultima partita</span>
+                <span class="stat-card-label">
+                    Ultima partita
+                </span>
+
                 <strong id="last-match">—</strong>
             </div>
 
@@ -69,21 +86,26 @@
 
     </section>
 
+
     <aside class="teams-sidebar">
+
         <h2>Nazionali</h2>
 
         <div id="teams-list">
-            <p class="loading">Caricamento...</p>
+            <p class="loading">
+                Caricamento...
+            </p>
         </div>
+
     </aside>
 
 </main>
-```
 
 
 <!-- PANNELLO PARTITE -->
 
 <div id="matches-overlay" class="matches-overlay"></div>
+
 
 <aside id="matches-panel" class="matches-panel">
 
@@ -96,7 +118,7 @@
 </aside>
 
 
-<!-- LIGHTBOX -->
+<!-- REFERTI DELLE PARTITE -->
 
 <div id="report-lightbox" class="report-lightbox">
 
@@ -104,7 +126,11 @@
         ×
     </button>
 
-    <img id="report-image" src="" alt="Referto della partita">
+    <img
+        id="report-image"
+        src=""
+        alt="Referto della partita"
+    >
 
 </div>
 
@@ -113,3 +139,4 @@
 
 </body>
 </html>
+```
