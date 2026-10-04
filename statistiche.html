@@ -30,31 +30,55 @@
 </header>
 
 
+```html
 <main class="statistics-page">
 
-    <section class="statistics-intro">
+    <section class="statistics-main">
 
-        <h1>Statistiche</h1>
+        <div class="statistics-intro">
+            <h1>Statistiche</h1>
+            <p>
+                Esplora i dati e lo storico delle nazionali presenti
+                nell'archivio.
+            </p>
+        </div>
 
-        <p>
-            Seleziona una nazionale per consultare lo storico delle
-            partite e i relativi documenti.
-        </p>
+        <section class="statistics-cards">
+
+            <div class="stat-card">
+                <span class="stat-card-label">Nazionali archiviate</span>
+                <strong id="total-teams">—</strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Partite registrate</span>
+                <strong id="total-matches">—</strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Gol segnati</span>
+                <strong id="total-goals">—</strong>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card-label">Ultima partita</span>
+                <strong id="last-match">—</strong>
+            </div>
+
+        </section>
 
     </section>
 
-
     <aside class="teams-sidebar">
-
         <h2>Nazionali</h2>
 
         <div id="teams-list">
             <p class="loading">Caricamento...</p>
         </div>
-
     </aside>
 
 </main>
+```
 
 
 <!-- PANNELLO PARTITE -->
