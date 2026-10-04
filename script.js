@@ -206,7 +206,6 @@ document.addEventListener(
     }
 );
 
-```javascript
 /* =====================================================
    STATISTICHE GENERALI
    ===================================================== */
@@ -258,4 +257,3 @@ if (totalTeamsElement) {
             console.error("Errore caricamento statistiche:", error);
         });
 }
-```
