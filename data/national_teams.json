@@ -1,7 +1,7 @@
 [
   {
     "name": "Cipro del Nord",
-    "logo": "assets/logos/Northern Cyprus logo.png",
+    "logo": "data/assets/logos/Northern Cyprus logo.png",
     "matches": [
       {
         "date": "6-6-2026",
@@ -9,7 +9,7 @@
         "homeScore": 1,
         "away": "Cipro del Nord",
         "awayScore": 6,
-        "report": "assets/logos/6-6-2026 Padania-CiprodelNord.png"
+        "report": "data/assets/logos/6-6-2026 Padania-CiprodelNord.png"
       }
     ]
   }
