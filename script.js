@@ -461,313 +461,302 @@ function esc(value) {
 
 }
 
-
 /* =====================================================
    STATISTICHE - NAZIONALI E PARTITE
    ===================================================== */
 
-const teamsList =
-    document.getElementById("teams-list");
+document.addEventListener("DOMContentLoaded", () => {
 
-const matchesPanel =
-    document.getElementById("matches-panel");
+    const teamsList =
+        document.getElementById("teams-list");
 
-const matchesOverlay =
-    document.getElementById("matches-overlay");
+    const matchesPanel =
+        document.getElementById("matches-panel");
 
-const matchesContent =
-    document.getElementById("matches-content");
+    const matchesOverlay =
+        document.getElementById("matches-overlay");
 
-const closePanelButton =
-    document.getElementById("close-panel");
+    const matchesContent =
+        document.getElementById("matches-content");
 
-const reportLightbox =
-    document.getElementById("report-lightbox");
+    const closePanelButton =
+        document.getElementById("close-panel");
 
-const reportImage =
-    document.getElementById("report-image");
+    const reportLightbox =
+        document.getElementById("report-lightbox");
 
-const closeLightboxButton =
-    document.getElementById("close-lightbox");
+    const reportImage =
+        document.getElementById("report-image");
+
+    const closeLightboxButton =
+        document.getElementById("close-lightbox");
 
 
-/* =====================================================
-   CARICAMENTO NAZIONALI
-   ===================================================== */
+    /* =====================================================
+       CARICAMENTO NAZIONALI
+       ===================================================== */
 
-if (teamsList) {
+    if (teamsList) {
 
-    fetch("data/national_teams.json")
+        fetch("data/national_teams.json")
 
-        .then(response => {
+            .then(response => {
 
-            if (!response.ok) {
-                throw new Error(
-                    "Impossibile caricare national_teams.json"
+                if (!response.ok) {
+                    throw new Error(
+                        "Impossibile caricare national_teams.json"
+                    );
+                }
+
+                return response.json();
+
+            })
+
+            .then(teams => {
+
+                teamsList.innerHTML = "";
+
+                teams.forEach(team => {
+
+                    const button =
+                        document.createElement("button");
+
+                    button.className = "team-item";
+
+                    button.innerHTML = `
+                        <img
+                            src="${team.logo}"
+                            alt="${team.name}"
+                        >
+
+                        <span class="team-name">
+                            ${team.name}
+                        </span>
+
+                        <span class="team-arrow">
+                            →
+                        </span>
+                    `;
+
+                    button.addEventListener(
+                        "click",
+                        () => openTeam(team)
+                    );
+
+                    teamsList.appendChild(button);
+
+                });
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Errore caricamento nazionali:",
+                    error
                 );
-            }
 
-            return response.json();
-
-        })
-
-        .then(teams => {
-
-            teamsList.innerHTML = "";
-
-
-            teams.forEach(team => {
-
-                const button =
-                    document.createElement("button");
-
-
-                button.className =
-                    "team-item";
-
-
-                button.innerHTML = `
-
-                    <img
-                        src="${team.logo}"
-                        alt="${team.name}"
-                    >
-
-                    <span class="team-name">
-                        ${team.name}
-                    </span>
-
-                    <span class="team-arrow">
-                        →
-                    </span>
-
+                teamsList.innerHTML = `
+                    <p>
+                        Impossibile caricare le nazionali.
+                    </p>
                 `;
-
-
-                button.addEventListener(
-                    "click",
-                    () => openTeam(team)
-                );
-
-
-                teamsList.appendChild(button);
 
             });
 
-        })
-
-        .catch(error => {
-
-            console.error(
-                "Errore caricamento nazionali:",
-                error
-            );
+    }
 
 
-            teamsList.innerHTML = `
+    /* =====================================================
+       APRE LA LISTA DELLE PARTITE
+       ===================================================== */
 
-                <p>
-                    Impossibile caricare
-                    le nazionali.
-                </p>
+    function openTeam(team) {
 
-            `;
+        matchesContent.innerHTML = `
 
-        });
+            <h2 class="matches-title">
+                ${team.name}
+            </h2>
 
-}
-
-
-/* =====================================================
-   APRE LA LISTA DELLE PARTITE
-   ===================================================== */
-
-function openTeam(team) {
-
-    matchesContent.innerHTML = `
-
-        <h2 class="matches-title">
-            ${team.name}
-        </h2>
-
-        <div id="matches-list"></div>
-
-    `;
-
-
-    const matchesList =
-        document.getElementById("matches-list");
-
-
-    if (
-        !team.matches ||
-        team.matches.length === 0
-    ) {
-
-        matchesList.innerHTML = `
-
-            <p>
-                No matches available.
-            </p>
+            <div id="matches-list"></div>
 
         `;
 
-    } else {
-
-        team.matches.forEach(match => {
-
-            const matchButton =
-                document.createElement("button");
+        const matchesList =
+            document.getElementById("matches-list");
 
 
-            matchButton.className =
-                "match-item";
+        if (
+            !team.matches ||
+            team.matches.length === 0
+        ) {
 
-
-            matchButton.innerHTML = `
-
-                <div class="match-date">
-                    ${match.date}
-                </div>
-
-                <div class="match-score">
-
-                    ${match.home}
-
-                    ${match.homeScore}
-
-                    -
-
-                    ${match.awayScore}
-
-                    ${match.away}
-
-                </div>
-
+            matchesList.innerHTML = `
+                <p>
+                    No matches available.
+                </p>
             `;
 
+        } else {
 
-            matchButton.addEventListener(
-                "click",
-                () => openReport(match.report)
-            );
+            team.matches.forEach(match => {
 
+                const matchButton =
+                    document.createElement("button");
 
-            matchesList.appendChild(
-                matchButton
-            );
+                matchButton.className =
+                    "match-item";
 
-        });
+                matchButton.innerHTML = `
+
+                    <div class="match-date">
+                        ${match.date}
+                    </div>
+
+                    <div class="match-score">
+                        ${match.home}
+                        ${match.homeScore}
+                        -
+                        ${match.awayScore}
+                        ${match.away}
+                    </div>
+
+                `;
+
+                matchButton.addEventListener(
+                    "click",
+                    () => openReport(match.report)
+                );
+
+                matchesList.appendChild(
+                    matchButton
+                );
+
+            });
+
+        }
+
+        matchesPanel.classList.add("open");
+        matchesOverlay.classList.add("open");
 
     }
 
 
-    matchesPanel.classList.add("open");
+    /* =====================================================
+       CHIUDE IL PANNELLO
+       ===================================================== */
 
-    matchesOverlay.classList.add("open");
+    function closeMatchesPanel() {
 
-}
+        if (matchesPanel) {
+            matchesPanel.classList.remove("open");
+        }
 
+        if (matchesOverlay) {
+            matchesOverlay.classList.remove("open");
+        }
 
-/* =====================================================
-   CHIUDE IL PANNELLO
-   ===================================================== */
-
-function closeMatchesPanel() {
-
-    matchesPanel.classList.remove(
-        "open"
-    );
-
-    matchesOverlay.classList.remove(
-        "open"
-    );
-
-}
+    }
 
 
-if (closePanelButton) {
+    if (closePanelButton) {
 
-    closePanelButton.addEventListener(
-        "click",
-        closeMatchesPanel
-    );
-
-}
-
-
-if (matchesOverlay) {
-
-    matchesOverlay.addEventListener(
-        "click",
-        closeMatchesPanel
-    );
-
-}
-
-
-/* =====================================================
-   APRE IL REFERTO
-   ===================================================== */
-
-function openReport(reportPath) {
-
-    if (!reportPath) {
-
-        console.error(
-            "Nessun percorso del referto."
+        closePanelButton.addEventListener(
+            "click",
+            closeMatchesPanel
         );
 
-        return;
+    }
+
+
+    if (matchesOverlay) {
+
+        matchesOverlay.addEventListener(
+            "click",
+            closeMatchesPanel
+        );
 
     }
 
 
-    reportImage.src = reportPath;
+    /* =====================================================
+       APRE IL REFERTO
+       ===================================================== */
 
-    reportLightbox.classList.add(
-        "open"
-    );
+    function openReport(reportPath) {
 
-}
+        if (!reportPath) {
 
+            console.error(
+                "Nessun percorso del referto."
+            );
 
-/* =====================================================
-   CHIUDE IL REFERTO
-   ===================================================== */
+            return;
 
-function closeReport() {
+        }
 
-    reportLightbox.classList.remove(
-        "open"
-    );
+        reportImage.src = reportPath;
 
-    reportImage.src = "";
+        reportLightbox.classList.add("open");
 
-}
-
-
-if (closeLightboxButton) {
-
-    closeLightboxButton.addEventListener(
-        "click",
-        closeReport
-    );
-
-}
+    }
 
 
-if (reportLightbox) {
+    /* =====================================================
+       CHIUDE IL REFERTO
+       ===================================================== */
 
-    reportLightbox.addEventListener(
-        "click",
+    function closeReport() {
+
+        if (reportLightbox) {
+            reportLightbox.classList.remove("open");
+        }
+
+        if (reportImage) {
+            reportImage.src = "";
+        }
+
+    }
+
+
+    if (closeLightboxButton) {
+
+        closeLightboxButton.addEventListener(
+            "click",
+            closeReport
+        );
+
+    }
+
+
+    if (reportLightbox) {
+
+        reportLightbox.addEventListener(
+            "click",
+            event => {
+
+                if (event.target === reportLightbox) {
+                    closeReport();
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       TASTO ESC
+       ===================================================== */
+
+    document.addEventListener(
+        "keydown",
         event => {
 
-            if (
-                event.target ===
-                reportLightbox
-            ) {
+            if (event.key === "Escape") {
 
+                closeMatchesPanel();
                 closeReport();
 
             }
@@ -775,156 +764,131 @@ if (reportLightbox) {
         }
     );
 
-}
+
+    /* =====================================================
+       STATISTICHE GENERALI
+       ===================================================== */
+
+    const totalTeamsElement =
+        document.getElementById("total-teams");
+
+    const totalMatchesElement =
+        document.getElementById("total-matches");
+
+    const totalGoalsElement =
+        document.getElementById("total-goals");
+
+    const lastMatchElement =
+        document.getElementById("last-match");
 
 
-/* =====================================================
-   TASTO ESC
-   ===================================================== */
+    if (totalTeamsElement) {
 
-document.addEventListener(
-    "keydown",
-    event => {
+        fetch("data/national_teams.json")
 
-        if (event.key === "Escape") {
+            .then(response => {
 
-            closeMatchesPanel();
+                if (!response.ok) {
+                    throw new Error(
+                        "Impossibile caricare national_teams.json"
+                    );
+                }
 
-            closeReport();
+                return response.json();
 
-        }
+            })
 
-    }
-);
+            .then(teams => {
 
+                /* NUMERO NAZIONALI */
 
-/* =====================================================
-   STATISTICHE GENERALI
-   ===================================================== */
-
-const totalTeamsElement =
-    document.getElementById("total-teams");
-
-const totalMatchesElement =
-    document.getElementById("total-matches");
-
-const totalGoalsElement =
-    document.getElementById("total-goals");
-
-const lastMatchElement =
-    document.getElementById("last-match");
+                totalTeamsElement.textContent =
+                    teams.length;
 
 
-if (totalTeamsElement) {
+                /* TUTTE LE PARTITE */
 
-    fetch("data/national_teams.json")
-
-        .then(response => {
-
-            if (!response.ok) {
-                throw new Error(
-                    "Impossibile caricare national_teams.json"
-                );
-            }
-
-            return response.json();
-
-        })
-
-        .then(teams => {
-
-
-            /* NUMERO NAZIONALI */
-
-            totalTeamsElement.textContent =
-                teams.length;
-
-
-            /* TUTTE LE PARTITE */
-
-            const allMatches =
-                teams.flatMap(
-                    team => team.matches || []
-                );
-
-
-            /* NUMERO PARTITE */
-
-            totalMatchesElement.textContent =
-                allMatches.length;
-
-
-            /* TOTALE GOL */
-
-            const totalGoals =
-                allMatches.reduce(
-                    (total, match) => {
-
-                        return total
-                            + Number(match.homeScore)
-                            + Number(match.awayScore);
-
-                    },
-                    0
-                );
-
-
-            totalGoalsElement.textContent =
-                totalGoals;
-
-
-            /* ULTIMA PARTITA */
-
-            if (allMatches.length > 0) {
-
-                const sortedMatches =
-                    [...allMatches].sort(
-                        (a, b) => {
-
-                            const dateA =
-                                new Date(
-                                    a.date
-                                        .split("-")
-                                        .reverse()
-                                        .join("-")
-                                );
-
-
-                            const dateB =
-                                new Date(
-                                    b.date
-                                        .split("-")
-                                        .reverse()
-                                        .join("-")
-                                );
-
-
-                            return dateB - dateA;
-
-                        }
+                const allMatches =
+                    teams.flatMap(
+                        team => team.matches || []
                     );
 
 
-                lastMatchElement.textContent =
-                    sortedMatches[0].date;
+                /* NUMERO PARTITE */
+
+                totalMatchesElement.textContent =
+                    allMatches.length;
 
 
-            } else {
+                /* TOTALE GOL */
 
-                lastMatchElement.textContent =
-                    "—";
+                const totalGoals =
+                    allMatches.reduce(
+                        (total, match) => {
 
-            }
+                            return total
+                                + Number(match.homeScore)
+                                + Number(match.awayScore);
 
-        })
+                        },
+                        0
+                    );
 
-        .catch(error => {
 
-            console.error(
-                "Errore caricamento statistiche:",
-                error
-            );
+                totalGoalsElement.textContent =
+                    totalGoals;
 
-        });
 
-}
+                /* ULTIMA PARTITA */
+
+                if (allMatches.length > 0) {
+
+                    const sortedMatches =
+                        [...allMatches].sort(
+                            (a, b) => {
+
+                                const dateA =
+                                    new Date(
+                                        a.date
+                                            .split("-")
+                                            .reverse()
+                                            .join("-")
+                                    );
+
+                                const dateB =
+                                    new Date(
+                                        b.date
+                                            .split("-")
+                                            .reverse()
+                                            .join("-")
+                                    );
+
+                                return dateB - dateA;
+
+                            }
+                        );
+
+                    lastMatchElement.textContent =
+                        sortedMatches[0].date;
+
+                } else {
+
+                    lastMatchElement.textContent =
+                        "—";
+
+                }
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Errore caricamento statistiche:",
+                    error
+                );
+
+            });
+
+    }
+
+});
